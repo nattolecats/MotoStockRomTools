@@ -18,10 +18,13 @@ The inside images will output to: **output/**
 ```
 bash convert-to-sparse.sh
 ```
+**NOTE: For A14, Use extracted image directly. sparse image are not working with OTA update.**
+
+
 
 The sparse images will output to: **output/raw/**
 
-**NOTE: This process needed for flashing via fastbootd.**
+This process needed for flashing via fastbootd, or use as prebuilt vendor image.
 
 ## Mount images and make accessable to proprietary files (for devs)
 
