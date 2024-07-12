@@ -17,10 +17,28 @@ mkdir -p output/vendor_boot/ramdisk/
 echo "* Extracting both ramdisk..."
 
 cd output/boot/ramdisk/
-gunzip -c ../boot.img-ramdisk | cpio -i
+TARGET=boot.img-ramdisk
+unlz4 -f ../$TARGET ../tmp
+if [ $? -eq 0 ] ; then
+    TARGET=tmp
+fi
+gunzip -c ../$TARGET | cpio -i
+if [ $? -ne 0 ] ; then
+    cat ../$TARGET | cpio -i
+fi
+rm -rf ../tmp
 
 cd ../../vendor_boot/ramdisk/
-gunzip -c ../vendor_boot.img-vendor_ramdisk | cpio -i
+TARGET=vendor_boot.img-vendor_ramdisk
+unlz4 -f ../$TARGET ../tmp
+if [ $? -eq 0 ] ; then
+    TARGET=tmp
+fi
+gunzip -c ../$TARGET | cpio -i
+if [ $? -ne 0 ] ; then
+    cat ../$TARGET | cpio -i
+fi
+rm -rf ../tmp
 
 cd $CUR_DIR
 
